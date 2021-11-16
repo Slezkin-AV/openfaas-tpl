@@ -1,4 +1,4 @@
-FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/classic-watchdog:0.2.0 as watchdog
+FROM --platform=${TARGETPLATFORM:-linux/amd64} openfaas/classic-watchdog:0.2.0 as watchdog
 FROM --platform=${TARGETPLATFORM:-linux/amd64} python:3
 
 ARG TARGETPLATFORM
@@ -8,7 +8,7 @@ ARG BUILDPLATFORM
 ARG ADDITIONAL_PACKAGE
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
-COPY /etc/apt/sources.list      /etc/apt/sources.list
+COPY sources.list      /etc/apt/sources.list
 RUN chmod +x /usr/bin/fwatchdog
 RUN apt-get update \
     && apt-get install -y ca-certificates ${ADDITIONAL_PACKAGE} \

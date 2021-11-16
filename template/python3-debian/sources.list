@@ -1,0 +1,6 @@
+deb http://nexus:8081/repository/ubuntu-focal focal main restricted
+deb http://nexus:8081/repository/ubuntu-focal focal-updates main restricted
+deb http://nexus:8081/repository/ubuntu-focal focal universe
+deb http://nexus:8081/repository/ubuntu-focal focal-updates universe
+deb http://nexus:8081/repository/ubuntu-focal focal multiverse
+deb http://nexus:8081/repository/ubuntu-focal focal-updates multiverse
