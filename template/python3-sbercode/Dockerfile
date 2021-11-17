@@ -1,5 +1,5 @@
 FROM --platform=${TARGETPLATFORM:-linux/amd64} openfaas/classic-watchdog:0.2.0 as watchdog
-FROM --platform=${TARGETPLATFORM:-linux/amd64} python:3
+FROM --platform=${TARGETPLATFORM:-linux/amd64} python:3.7-slim
 
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
