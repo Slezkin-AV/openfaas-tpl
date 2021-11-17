@@ -1,2 +1,2 @@
-language: python3-debian
+language: python3-sbercode
 fprocess: python3 index.py

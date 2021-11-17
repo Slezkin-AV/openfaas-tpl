@@ -1,7 +1,5 @@
-def handle(req):
-    """handle a request to the function
-    Args:
-        req (str): request body
-    """
-
-    return req
+def handle(event, context):
+    return {
+        "statusCode": 200,
+        "body": "Hello from OpenFaaS!"
+    }
