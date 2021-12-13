@@ -5,7 +5,18 @@ import os
 
 from function import handler
 
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
+    @app.route('/', defaults={'path': ''}, methods=['GET', 'PUT', 'POST', 'PATCH', 'DELETE'])
+    @app.route('/<path:path>', methods=['GET', 'PUT', 'POST', 'PATCH', 'DELETE'])
+    def call_handler(path):
+        event = Event()
+        context = Context()
+        response_data = handler.handle(event, context)        
+        res = format_response(response_data)
+        return res
+    
+    return app
 
 class Event:
     def __init__(self):
@@ -66,16 +77,8 @@ def format_response(res):
 
     return (body, statusCode, headers)
 
-@app.route('/', defaults={'path': ''}, methods=['GET', 'PUT', 'POST', 'PATCH', 'DELETE'])
-@app.route('/<path:path>', methods=['GET', 'PUT', 'POST', 'PATCH', 'DELETE'])
-def call_handler(path):
-    event = Event()
-    context = Context()
 
-    response_data = handler.handle(event, context)
-    
-    res = format_response(response_data)
-    return res
 
 if __name__ == '__main__':
+    app = create_app()
     serve(app, host='0.0.0.0', port=5000)

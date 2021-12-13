@@ -1,11 +1,15 @@
 
-from .handler import handle
+import pytest
+import index
 
-# Test your handler here
+@pytest.fixture
+def app():
+    app = index.create_app()
+    app.debug = True
+    return app.test_client()
 
-# To disable testing, you can set the build_arg `TEST_ENABLED=false` on the CLI or in your stack.yml
-# https://docs.openfaas.com/reference/yaml/#function-build-args-build-args
-
-def test_handle():
-    # assert handle("input") == "input"
+def test_handle(app):
+    res = app.get("/")
+    assert res.status_code == 200
+    assert b"Hello from OpenFaaS!" == res.data
     pass
