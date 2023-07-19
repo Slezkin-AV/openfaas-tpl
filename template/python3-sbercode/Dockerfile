@@ -1,12 +1,11 @@
-FROM openfaas/of-watchdog:0.7.7 as watchdog
+FROM openfaas/of-watchdog:0.9.11 as watchdog
 FROM python:3.7-slim
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
 
 # Add non root user
-RUN addgroup --system app && adduser app --system --ingroup app
-RUN chown app /home/app
+RUN addgroup --system app && adduser app --system --ingroup app --home /home/app
 
 USER app
 
